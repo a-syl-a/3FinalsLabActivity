@@ -1,0 +1,62 @@
+<div class="container">
+  <div class="form-container">
+    <h2> Template Driven </h2>
+    <form (ngSubmit)="onSubmit()">
+      <input class="input-box" type="text" name="username" [(ngModel)]="name" placeholder="Enter name" required>
+      <input class="btn" type="submit" value="Submit" [disabled]="!name">
+      <br><br>
+
+      <input class="input-box" type="text" name="username" [(ngModel)]="username" placeholder="Input username" required>
+      <input class="btn" type="submit" value="Submit" [disabled]="!username">
+      <br><br>
+
+      <input class="input-box" type="text" name="username" [(ngModel)]="password" placeholder="Input password" required>
+      <input class="btn" type="submit" value="Submit" [disabled]="!password">
+      <br><br>
+
+      <input class="input-box" type="text" name="username" [(ngModel)]="confirmpass" placeholder="Confirm password" required>
+      <input class="btn" type="submit" value="Submit" [disabled]="!confirmpass">
+      <br><br>
+    </form>
+
+    <p *ngIf="submitted"> You have entered: {{name}} </p>
+    <p *ngIf="submitted"> You have entered: {{username}} </p>
+    <p *ngIf="submitted"> You have entered: {{password}} </p>
+    <p *ngIf="submitted"> You have entered: {{confirmpass}} </p>
+  </div>
+
+  <div class="form-container">
+    <h2> Reactive Form </h2>
+    <form [formGroup]="formData" (ngSubmit)="onClickSubmit(formData.value)">
+      <input class="input-box" type="text" name="userName" placeholder="Enter text" formControlName="userName">
+      <input class="btn" type="submit" value="Click here">
+    </form>
+
+    <p *ngIf="submitted"> You have entered: {{userName}} </p>
+  </div>
+
+  <div class="form-container">
+    <h2> Reactive Form with Validation </h2>
+    <form [formGroup]="loginForm" (ngSubmit)="onSubmit()">
+      <div>
+        <label for="email">Email</label>
+        <input class="input-box" type="email" id="email" formControlName="email">
+        <div *ngIf="loginForm.controls['email'].invalid && loginForm.controls['email'].touched" class="error">
+          Email is required and must be a valid email address.
+        </div>
+      </div>
+
+      <div>
+        <label for="password">Password</label>
+        <input class="input-box" type="password" id="password" formControlName="password">
+        <div *ngIf="loginForm.controls['password'].invalid && loginForm.controls['password'].touched" class="error">
+          Password is required and must be at least 6 characters long.
+        </div>
+      </div>
+
+      <button class="btn" type="submit" [disabled]="loginForm.invalid">Submit</button>
+    </form>
+  </div>
+</div>
+
+<router-outlet />
